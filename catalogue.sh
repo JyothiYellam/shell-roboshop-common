@@ -3,9 +3,9 @@
 source ./common.sh
 app_name=catalogue
 
-check_root
-app_setup
+check_user
 nodejs_setup
+app_setup
 systemd_setup
 
 # Loading data into MongoDB
