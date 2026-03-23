@@ -2,8 +2,8 @@
 source ./common.sh
 
 check-user
-nodejs_setup
 app-setup
+nodejs_setup
 systemd_setup
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
