@@ -44,7 +44,7 @@ nodejs_setup(){
     VALIDATE $? "Install NodeJS"
 }
 
-app-setup(){
+app_setup(){
     mkdir -p /app 
     VALIDATE $? "Creating app directory"
 

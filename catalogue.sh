@@ -2,7 +2,7 @@
 source ./common.sh
 
 check-user
-app-setup
+app_setup
 nodejs_setup
 systemd_setup
 
