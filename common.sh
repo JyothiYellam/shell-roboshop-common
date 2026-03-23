@@ -14,7 +14,7 @@ START_TIME=$(date +%s)
 
 mkdir -p $LOGS_FOLDER 
 
-echo "$(date +%Y-%m-%d %H:%M:%S) script started executing at: $(date)" | tee -a $LOGS_FILE
+echo "$(date +%Y-%m-%d %H:%M:%S") script started executing at: $(date)" | tee -a $LOGS_FILE
 
 check_user(){
     if [ $USERID -ne 0 ]; then
@@ -33,9 +33,4 @@ VALIDATE(){
     fi
 }
 
-print-total-time(){
-    End_TIME=$(date +%s)
-    TOTAL_TIME=$(( $END_TIME - $START_TIME ))
-    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script execute in: $G $TOTAL_TIME seconds $N" | tee -a $LOGS_FILE
-}
 
