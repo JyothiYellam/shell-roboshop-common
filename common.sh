@@ -2,7 +2,7 @@
 
 USERID=$(id -u)
 LOGS_FOLDER="/var/log/shell-roboshop"
-LOGS_FILE="$LOGS_FOLDER/$0.log"
+"LOGS_FILE"="$LOGS_FOLDER/$0.log"
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -49,7 +49,7 @@ app_setup(){
     VALIDATE $? "Creating app directory"
 
     curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip  &>>$LOGS_FILE
-    VALIDATE $? "Downloading  code"
+    VALIDATE $? "Downloading $app_name code"
 
     cd /app
     VALIDATE $? "Moving to app directory"
@@ -62,10 +62,7 @@ app_setup(){
 
     npm install  &>>$LOGS_FILE
     VALIDATE $? "Installing dependencies"
-
-    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
-    VALIDATE $? "Created systemctl service"
-}
+    }
 
 systemd_setup(){
     cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service

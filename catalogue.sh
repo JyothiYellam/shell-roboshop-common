@@ -1,6 +1,6 @@
 
 source ./common.sh
-app_name = "catalogue"
+app_name=catalogue
 
 check_user
 app_setup
