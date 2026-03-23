@@ -49,7 +49,7 @@ app_setup(){
     VALIDATE $? "Creating app directory"
 
     curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip  &>>$LOGS_FILE
-    VALIDATE $? "Downloading $app_name code"
+    VALIDATE $? "Downloading  code"
 
     cd /app
     VALIDATE $? "Moving to app directory"
@@ -74,10 +74,10 @@ systemd_setup(){
     systemctl daemon-reload
     systemctl enable $app_name  &>>$LOGS_FILE
     systemctl start $app_name
-    VALIDATE $? "Starting and enabling $app_name
+    VALIDATE $? "Starting and enabling $app_name"
 }
 
-app-restart(){
+app_restart(){
     systemctl restart $app_name
     VALIDATE $? "Restarting $app_name"
 }
