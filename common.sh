@@ -16,7 +16,7 @@ mkdir -p $LOGS_FOLDER
 
 echo "$(date "+%Y-%m-%d %H:%M:%S") | Script started executing at: $(date)" | tee -a $LOGS_FILE
 
-user_user(){
+check_user(){
     if [ $USERID -ne 0 ]; then
         echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FILE
         exit 1
