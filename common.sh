@@ -46,7 +46,6 @@ nodejs_setup(){
     npm install &>>$LOGS_FILE
     VALIDATE $? "Installing dependencies"
 }
-}
 
 java_setup(){
     dnf install maven -y &>>$LOGS_FILE
@@ -78,7 +77,6 @@ app_setup(){
     else
         echo -e "Roboshop user already exist ... $Y SKIPPING $N"
     fi
-}
 
     # downloading the app
     mkdir -p /app 
@@ -96,8 +94,6 @@ app_setup(){
     unzip /tmp/$app_name.zip &>>$LOGS_FILE
     VALIDATE $? "Uzip $app_name code"
 
-    cd /app
-    npm install
 }
 
 systemd_setup(){
