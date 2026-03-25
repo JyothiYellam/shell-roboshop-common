@@ -2,7 +2,7 @@
 
 source ./common.sh
 
-check-user
+check_user
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Copying Mongo Repo" 
