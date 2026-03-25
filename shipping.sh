@@ -3,7 +3,7 @@
 source ./common.sh
 app_name=shipping
 
-check_root
+check_user
 java_setup
 app_setup
 systemd_setup
