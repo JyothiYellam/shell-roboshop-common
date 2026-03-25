@@ -8,29 +8,27 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
-MONGODB_HOST=mongodb.jyothiy.online
 START_TIME=$(date +%s)
-MYSQL_HOST=mysql.jyothiy.online
+MONGODB_HOST=mongodb.daws88s.online
+MYSQL_HOST=mysql.daws88s.online
 
+mkdir -p $LOGS_FOLDER
 
-mkdir -p $LOGS_FOLDER 
+echo "$(date "+%Y-%m-%d %H:%M:%S") | Script started executing at: $(date)" | tee -a $LOGS_FILE
 
-echo "$(date "+%Y-%m-%d %H:%M:%S") | script started executing at: $(date)" | tee -a $LOGS_FILE
-
-check_user(){
+user_user(){
     if [ $USERID -ne 0 ]; then
         echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FILE
         exit 1
     fi
 }
-  
 
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-        echo -e "$(date "+%Y-%m-%d %H:%M:%S") $2 ... $R FAILURE $N" | tee -a $LOGS_FILE
+        echo -e "$(date "+%Y-%m-%d %H:%M:%S") | $2 ... $R FAILURE $N" | tee -a $LOGS_FILE
         exit 1
     else
-        echo -e "$(date "+%Y-%m-%d %H:%M:%S") $2 ... $G SUCCESS $N" | tee -a $LOGS_FILE
+        echo -e "$(date "+%Y-%m-%d %H:%M:%S") | $2 ... $G SUCCESS $N" | tee -a $LOGS_FILE
     fi
 }
 
@@ -43,6 +41,9 @@ nodejs_setup(){
 
     dnf install nodejs -y &>>$LOGS_FILE
     VALIDATE $? "Install NodeJS"
+
+    npm install  &>>$LOGS_FILE
+    VALIDATE $? "Installing dependencies"
 }
 
 java_setup(){
@@ -67,6 +68,16 @@ python_setup(){
 }
 
 app_setup(){
+    # creating system user
+    id roboshop &>>$LOGS_FILE
+    if [ $? -ne 0 ]; then
+        useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+        VALIDATE $? "Creating system user"
+    else
+        echo -e "Roboshop user already exist ... $Y SKIPPING $N"
+    fi
+
+    # downloading the app
     mkdir -p /app 
     VALIDATE $? "Creating app directory"
 
@@ -81,10 +92,7 @@ app_setup(){
 
     unzip /tmp/$app_name.zip &>>$LOGS_FILE
     VALIDATE $? "Uzip $app_name code"
-
-    npm install  &>>$LOGS_FILE
-    VALIDATE $? "Installing dependencies"
-    }
+}
 
 systemd_setup(){
     cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
@@ -101,9 +109,8 @@ app_restart(){
     VALIDATE $? "Restarting $app_name"
 }
 
-
 print_total_time(){
     END_TIME=$(date +%s)
-    TOTAL_TIME=$((END_TIME - START_TIME))
-    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | script execution time: $TOTAL_TIME seconds" | tee -a $LOGS_FILE
+    TOTAL_TIME=$(( $END_TIME - $START_TIME ))
+    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script execute in: $G $TOTAL_TIME seconds $N" | tee -a $LOGS_FILE
 }
