@@ -4,8 +4,8 @@ source ./common.sh
 app_name=shipping
 
 check_user
-java_setup
 app_setup
+java_setup
 systemd_setup
 
 dnf install mysql -y  &>>$LOGS_FILE

@@ -10,6 +10,7 @@ N="\e[0m"
 SCRIPT_DIR=$PWD
 MONGODB_HOST=mongodb.jyothiy.online
 START_TIME=$(date +%s)
+MYSQL_HOST=mysql.jyothiy.online
 
 
 mkdir -p $LOGS_FOLDER 
